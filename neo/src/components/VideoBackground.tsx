@@ -3,18 +3,20 @@ export const MOTION_BG_URL =
 
 export function VideoBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
-      <video
-        className="absolute inset-0 h-full w-full scale-105 object-cover"
-        src={MOTION_BG_URL}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
-      <div className="absolute inset-0 bg-black/55" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.72)_80%)]" />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+      <div className="absolute inset-y-0 left-0 right-[280px] flex items-center justify-center">
+        <video
+          className="h-full w-full object-contain object-center"
+          src={MOTION_BG_URL}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.62)_82%)]" />
     </div>
   );
 }
