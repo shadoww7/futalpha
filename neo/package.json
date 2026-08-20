@@ -1,12 +1,14 @@
 {
-  "name": "neo-chat",
+  "name": "illusions",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "main": "electron/main.mjs",
   "scripts": {
     "dev": "concurrently -k -n server,web -c cyan,magenta \"npm run dev:server\" \"npm run dev:web\"",
     "dev:web": "vite",
     "dev:server": "tsx watch server/index.ts",
+    "app": "concurrently -k -n server,web,app -c cyan,magenta,green \"npm run dev:server\" \"npm run dev:web\" \"wait-on http://127.0.0.1:5174 http://127.0.0.1:8787/api/health && electron . --no-sandbox\"",
     "build": "tsc -p tsconfig.json --noEmit && vite build",
     "preview": "vite preview --port 5174",
     "start": "tsx server/index.ts"
@@ -15,6 +17,7 @@
     "@ai-sdk/openai": "^2.0.32",
     "@ai-sdk/react": "^2.0.32",
     "@ai-sdk/xai": "^2.0.23",
+    "@modelcontextprotocol/sdk": "^1.17.4",
     "@hono/node-server": "^1.19.1",
     "ai": "^5.0.32",
     "clsx": "^2.1.1",
@@ -38,7 +41,9 @@
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
+    "electron": "^37.3.1",
     "concurrently": "^9.2.1",
+    "wait-on": "^8.0.4",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.20.5",

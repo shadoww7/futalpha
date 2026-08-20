@@ -24,7 +24,7 @@ export function Header() {
             if (name) addWorkspace(name);
           }}
         >
-          Neo
+          Illusions
           <ChevronDown className="h-3.5 w-3.5 text-neo-faint" />
         </button>
         <div className="flex min-w-0 items-center gap-2 text-[13px] text-neo-muted">

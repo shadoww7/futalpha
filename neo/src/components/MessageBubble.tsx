@@ -38,6 +38,17 @@ export function MessageBubble({ message, isLast }: { message: ChatMessage; isLas
       {message.content ? <Markdown content={message.content} /> : streaming && isLast ? (
         <span className="inline-block h-4 w-4 animate-pulse rounded-full bg-white/20" />
       ) : null}
+      {!!message.tools?.length && (
+        <div className="mb-3 space-y-1">
+          {message.tools.map((item, index) => (
+            <div key={`${item.name}-${index}`} className="rounded-lg border border-white/[0.06] bg-[#111] px-3 py-2 text-[12px] text-neo-muted">
+              <span className="text-neo-faint">MCP</span> {item.name}
+              <span className="ml-2 text-[11px] text-neo-faint">{item.status}</span>
+              {item.detail && <div className="mt-1 line-clamp-3 font-mono text-[11px] text-neo-faint">{item.detail}</div>}
+            </div>
+          ))}
+        </div>
+      )}
       {!!message.sources?.length && (
         <div className="mt-3 space-y-1 text-[12px]">
           <div className="text-neo-faint">{copy.sources}</div>

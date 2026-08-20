@@ -8,6 +8,7 @@ import { CompareView } from './components/CompareView';
 import { CustomizePanel } from './components/CustomizePanel';
 import { Header } from './components/Header';
 import { IdePanel } from './components/IdePanel';
+import { McpPanel } from './components/McpPanel';
 import { MessageList } from './components/MessageList';
 import { Sidebar } from './components/Sidebar';
 import { useAutomations } from './hooks/useAutomations';
@@ -45,7 +46,7 @@ export function App() {
   }, [chat?.messages, canvasOpen, setPanel]);
 
   if (!ready) {
-    return <div className="grid h-full place-items-center text-[13px] text-neo-faint">Neo</div>;
+    return <div className="grid h-full place-items-center text-[13px] text-neo-faint">Illusions</div>;
   }
 
   return (
@@ -72,6 +73,7 @@ export function App() {
       <CommandPalette />
       <CustomizePanel />
       <AutomationsPanel />
+      <McpPanel />
     </div>
   );
 }

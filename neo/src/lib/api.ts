@@ -7,7 +7,7 @@ export async function fetchHealth(): Promise<HealthStatus> {
     if (!res.ok) throw new Error('health failed');
     return (await res.json()) as HealthStatus;
   } catch {
-    return { ok: false, grok: false, codex: false, demo: true, connected: false };
+    return { ok: false, grok: false, codex: false, demo: true, connected: false, mcp: { servers: 0, connected: 0, tools: 0 } };
   }
 }
 

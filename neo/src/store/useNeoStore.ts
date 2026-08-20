@@ -53,6 +53,7 @@ function blankChat(workspaceId: string, settings?: Partial<Chat>): Chat {
     model: 'grok-4.6',
     effort: 'high',
     research: false,
+    mcp: true,
     messages: [],
     ...settings,
   };
@@ -65,6 +66,7 @@ function toRequest(chat: Chat, messages = chat.messages): ChatRequest {
     model: chat.model,
     effort: chat.effort,
     research: chat.research,
+    mcp: chat.mcp !== false,
     messages: messages.map((message) => ({
       role: message.role,
       content: message.content,
@@ -85,6 +87,7 @@ interface PanelState {
   ideOpen: boolean;
   canvasOpen: boolean;
   artifactOpen: boolean;
+  mcpOpen: boolean;
 }
 
 interface NeoState extends PanelState {
@@ -110,7 +113,7 @@ interface NeoState extends PanelState {
   deleteChat: (id: string) => void;
   toggleWorkspace: (id: string) => void;
   addWorkspace: (name: string) => void;
-  updateActive: (patch: Partial<Pick<Chat, 'provider' | 'model' | 'effort' | 'research'>>) => void;
+  updateActive: (patch: Partial<Pick<Chat, 'provider' | 'model' | 'effort' | 'research' | 'mcp'>>) => void;
   send: (text: string, attachments?: Attachment[]) => Promise<void>;
   stop: () => void;
   regenerate: () => Promise<void>;
@@ -146,6 +149,7 @@ export const useNeoStore = create<NeoState>((set, get) => ({
   ideOpen: false,
   canvasOpen: false,
   artifactOpen: false,
+  mcpOpen: false,
 
   hydrate: async () => {
     const [settings, workspaces, chats, automations, health] = await Promise.all([
@@ -285,6 +289,7 @@ export const useNeoStore = create<NeoState>((set, get) => ({
       content: '',
       thought: '',
       sources: [],
+      tools: [],
       createdAt: Date.now(),
     };
 
@@ -326,6 +331,7 @@ export const useNeoStore = create<NeoState>((set, get) => ({
     let content = '';
     let thought = '';
     const sources = [...(assistantMessage.sources ?? [])];
+    const tools = [...(assistantMessage.tools ?? [])];
 
     try {
       await streamChat(toRequest(nextChat, nextChat.messages.slice(0, -1)), {
@@ -342,6 +348,14 @@ export const useNeoStore = create<NeoState>((set, get) => ({
               sources.push({ title: event.title, url: event.url });
               applyAssistant({ sources: [...sources] });
             }
+          } else if (event.type === 'tool') {
+            const existing = tools.findIndex((item) => item.name === event.name && item.status === 'start');
+            if (existing >= 0 && event.status !== 'start') {
+              tools[existing] = event;
+            } else {
+              tools.push({ name: event.name, status: event.status, detail: event.detail });
+            }
+            applyAssistant({ tools: [...tools] });
           } else if (event.type === 'error') {
             applyAssistant({ error: event.message, content: content || event.message });
           }
@@ -449,7 +463,7 @@ export const useNeoStore = create<NeoState>((set, get) => ({
     };
     get().upsertAutomation(next);
     if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-      new Notification('Neo · automação', { body: automation.title });
+      new Notification('Illusions · automação', { body: automation.title });
     }
     await get().send(automation.prompt);
   },

@@ -1,4 +1,4 @@
-import { streamText, type ModelMessage } from 'ai';
+import { stepCountIs, streamText, type ModelMessage, type Tool } from 'ai';
 import { xai } from '@ai-sdk/xai';
 import type { ChatAttachment, ChatRequest, StreamEmitter } from './types';
 
@@ -42,7 +42,12 @@ function toModelMessages(request: ChatRequest): ModelMessage[] {
     });
 }
 
-export async function streamGrok(request: ChatRequest, emit: StreamEmitter, signal?: AbortSignal) {
+export async function streamGrok(
+  request: ChatRequest,
+  emit: StreamEmitter,
+  signal?: AbortSignal,
+  mcpTools: Record<string, Tool> = {},
+) {
   const apiKey = process.env.XAI_API_KEY;
   if (!apiKey) {
     throw new Error('XAI_API_KEY ausente');
@@ -50,14 +55,19 @@ export async function streamGrok(request: ChatRequest, emit: StreamEmitter, sign
 
   const model = ALLOWED_MODELS.has(request.model) ? request.model : 'grok-4.6';
   const messages = toModelMessages(request);
+  const tools = {
+    ...mcpTools,
+    ...(request.research ? { web_search: xai.tools.webSearch() } : {}),
+  };
 
   const result = streamText({
     model: xai.responses(model),
     system:
-      'Você é o Neo, um assistente de workspace dark e direto. Responda em português do Brasil salvo se o usuário pedir outro idioma. Use markdown. Quando fizer pesquisa, cite fontes no texto.',
+      'Você é o Illusions, um assistente de workspace dark e direto, com MCP. Responda em português do Brasil salvo se o usuário pedir outro idioma. Use markdown. Quando fizer pesquisa ou chamar tools MCP, explique o que fez.',
     messages,
     abortSignal: signal,
-    tools: request.research ? { web_search: xai.tools.webSearch() } : undefined,
+    tools: Object.keys(tools).length ? tools : undefined,
+    stopWhen: stepCountIs(8),
     providerOptions: {
       xai: {
         reasoningEffort: request.effort,
@@ -85,6 +95,12 @@ export async function streamGrok(request: ChatRequest, emit: StreamEmitter, sign
         seenSources.add(url);
         emit({ type: 'source', title, url });
       }
+    } else if (part.type === 'tool-call') {
+      const name = 'toolName' in part ? String(part.toolName) : 'tool';
+      emit({ type: 'tool', name, status: 'start' });
+    } else if (part.type === 'tool-result') {
+      const name = 'toolName' in part ? String(part.toolName) : 'tool';
+      emit({ type: 'tool', name, status: 'done' });
     }
   }
 }

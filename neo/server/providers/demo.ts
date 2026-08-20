@@ -19,18 +19,22 @@ export async function streamDemo(request: ChatRequest, emit: StreamEmitter) {
   await emitWords(
     emit,
     'reasoning',
-    'Sem chave da xAI. Vou responder em modo demo: alinhar o plano, depois escrever a resposta com o mesmo tom do Neo.\n',
+    'Sem chave da xAI. Vou responder em modo demo: alinhar o plano, depois escrever a resposta com o tom do Illusions.\n',
     12,
   );
 
   const reply = [
     `Recebi: "${prompt.slice(0, 180)}"`,
     '',
-    'O Neo está no ar, mas ainda **não conectado** à Grok.',
+    'O **Illusions** está no ar como app, mas ainda **não conectado** à Grok.',
     '',
     '1. Crie uma key em https://console.x.ai',
     '2. Copie `neo/.env.example` para `neo/.env`',
-    '3. Preencha `XAI_API_KEY` e rode `npm run dev` de novo',
+    '3. Preencha `XAI_API_KEY` e rode `npm run app`',
+    '',
+    request.mcp !== false
+      ? 'MCP builtin do Illusions já está ativo (`time_now`, `system_info`, `echo`). Adicione outros servidores no painel MCP.'
+      : 'MCP desligado neste chat.',
     '',
     request.research
       ? 'O modo Research também precisa da key — as fontes reais vêm do `web_search` da xAI.'

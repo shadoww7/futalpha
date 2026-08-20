@@ -54,7 +54,7 @@ export async function streamCodex(request: ChatRequest, emit: StreamEmitter, sig
   const result = streamText({
     model: openai(model),
     system:
-      'Você é o Codex dentro do Neo: um assistente de código preciso. Responda em português do Brasil salvo se o usuário pedir outro idioma. Prefira diffs e exemplos concretos.',
+      'Você é o Codex dentro do Illusions: um assistente de código preciso. Responda em português do Brasil salvo se o usuário pedir outro idioma. Prefira diffs e exemplos concretos.',
     messages: toModelMessages(request),
     abortSignal: signal,
   });

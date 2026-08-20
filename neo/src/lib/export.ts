@@ -3,7 +3,7 @@ import type { Chat } from '../types';
 export function chatToMarkdown(chat: Chat) {
   const lines = [`# ${chat.title}`, '', `_modelo: ${chat.model} · ${new Date(chat.createdAt).toLocaleString()}_`, ''];
   for (const message of chat.messages) {
-    lines.push(`## ${message.role === 'user' ? 'Você' : 'Neo'}`);
+    lines.push(`## ${message.role === 'user' ? 'Você' : 'Illusions'}`);
     if (message.thought) {
       lines.push('', '> ' + message.thought.replace(/\n/g, '\n> '), '');
     }

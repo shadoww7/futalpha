@@ -20,6 +20,7 @@ export interface ChatRequest {
   model: string;
   effort: Effort;
   research?: boolean;
+  mcp?: boolean;
   messages: ChatMessage[];
 }
 
@@ -27,6 +28,7 @@ export type StreamEvent =
   | { type: 'reasoning'; delta: string }
   | { type: 'text'; delta: string }
   | { type: 'source'; title: string; url: string }
+  | { type: 'tool'; name: string; status: 'start' | 'done' | 'error'; detail?: string }
   | { type: 'done' }
   | { type: 'error'; message: string };
 
@@ -38,4 +40,5 @@ export interface HealthStatus {
   codex: boolean;
   demo: boolean;
   connected: boolean;
+  mcp?: { servers: number; connected: number; tools: number };
 }

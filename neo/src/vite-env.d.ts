@@ -30,6 +30,7 @@ interface Window {
   SpeechRecognition?: { new (): SpeechRecognition };
   webkitSpeechRecognition?: { new (): SpeechRecognition };
   showDirectoryPicker?: () => Promise<FileSystemDirectoryHandle>;
+  illusions?: { desktop: boolean; name: string };
 }
 
 interface FileSystemHandle {

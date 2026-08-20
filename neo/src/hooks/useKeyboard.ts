@@ -20,6 +20,7 @@ export function useKeyboard() {
           state.setPanel('searchOpen', false);
           state.setPanel('customizeOpen', false);
           state.setPanel('automationsOpen', false);
+          state.setPanel('mcpOpen', false);
         }
       }
     };

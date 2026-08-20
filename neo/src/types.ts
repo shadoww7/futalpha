@@ -26,6 +26,7 @@ export interface ChatMessage {
   attachments?: Attachment[];
   createdAt: number;
   error?: string;
+  tools?: { name: string; status: 'start' | 'done' | 'error'; detail?: string }[];
 }
 
 export interface Chat {
@@ -38,6 +39,7 @@ export interface Chat {
   model: string;
   effort: Effort;
   research: boolean;
+  mcp: boolean;
   messages: ChatMessage[];
   forkedFrom?: string;
 }
@@ -75,6 +77,7 @@ export interface HealthStatus {
   codex: boolean;
   demo: boolean;
   connected: boolean;
+  mcp?: { servers: number; connected: number; tools: number };
 }
 
 export interface ModelOption {
@@ -89,5 +92,18 @@ export type StreamEvent =
   | { type: 'reasoning'; delta: string }
   | { type: 'text'; delta: string }
   | { type: 'source'; title: string; url: string }
+  | { type: 'tool'; name: string; status: 'start' | 'done' | 'error'; detail?: string }
   | { type: 'done' }
   | { type: 'error'; message: string };
+
+export interface McpServerStatus {
+  id: string;
+  name: string;
+  command: string;
+  args: string[];
+  enabled: boolean;
+  builtin?: boolean;
+  connected: boolean;
+  error?: string;
+  tools: { name: string; description: string; serverName: string }[];
+}

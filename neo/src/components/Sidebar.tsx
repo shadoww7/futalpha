@@ -1,4 +1,4 @@
-import { ChevronRight, FlaskConical, Pencil, Search, Settings, SlidersHorizontal, Zap } from 'lucide-react';
+import { ChevronRight, FlaskConical, Pencil, Plug, Search, Settings, SlidersHorizontal, Zap } from 'lucide-react';
 import { t } from '../i18n';
 import { cn } from '../lib/cn';
 import { modelLabel } from '../lib/models';
@@ -31,6 +31,7 @@ export function Sidebar() {
       run: () => updateActive({ research: !chat?.research }),
       active: !!chat?.research,
     },
+    { id: 'mcp', label: copy.mcp, icon: Plug, run: () => setPanel('mcpOpen', true), active: chat?.mcp !== false },
     { id: 'auto', label: copy.automations, icon: Zap, run: () => setPanel('automationsOpen', true) },
     { id: 'custom', label: copy.customize, icon: SlidersHorizontal, run: () => setPanel('customizeOpen', true) },
   ];
@@ -105,6 +106,7 @@ export function Sidebar() {
           <div className="truncate text-[11px] text-neo-faint">
             {health.connected ? modelLabel(chat?.model ?? 'grok-4.6') : 'Demo'}
             {chat?.effort === 'xhigh' ? ' Super Heavy' : ''}
+            {health.mcp?.tools ? ` · MCP ${health.mcp.tools}` : ''}
           </div>
         </div>
         <button type="button" onClick={() => setPanel('customizeOpen', true)} className="text-neo-faint hover:text-white">
