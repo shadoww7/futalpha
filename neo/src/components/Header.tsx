@@ -1,4 +1,4 @@
-import { ChevronDown, Link2, Monitor, MoreHorizontal, SlidersHorizontal } from 'lucide-react';
+import { ChevronDown, Link2, Monitor, MoreHorizontal, PanelRight, PanelRightClose, SlidersHorizontal } from 'lucide-react';
 import { t } from '../i18n';
 import { cn } from '../lib/cn';
 import { useNeoStore } from '../store/useNeoStore';
@@ -12,6 +12,8 @@ export function Header() {
   const setPanel = useNeoStore((s) => s.setPanel);
   const exportChat = useNeoStore((s) => s.exportChat);
   const addWorkspace = useNeoStore((s) => s.addWorkspace);
+  const sidebarOpen = useNeoStore((s) => s.settings.sidebarOpen !== false);
+  const setSettings = useNeoStore((s) => s.setSettings);
 
   return (
     <header className="flex h-12 shrink-0 items-center justify-between border-b border-white/[0.05] bg-black/25 px-4 backdrop-blur-md">
@@ -63,6 +65,13 @@ export function Header() {
             </div>
           </details>
         </div>
+        <IconButton
+          title={sidebarOpen ? copy.sidebarHide : copy.sidebarShow}
+          active={sidebarOpen}
+          onClick={() => setSettings({ sidebarOpen: !sidebarOpen })}
+        >
+          {sidebarOpen ? <PanelRightClose className="h-4 w-4" /> : <PanelRight className="h-4 w-4" />}
+        </IconButton>
         <button
           type="button"
           onClick={() => setPanel('ideOpen')}

@@ -34,6 +34,7 @@ const defaultSettings = (): Settings => ({
   compareEnabled: false,
   compareModel: 'grok-4.3',
   motionBg: true,
+  sidebarOpen: true,
 });
 
 const defaultWorkspace = (): Workspace => ({

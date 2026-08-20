@@ -4,7 +4,7 @@ export const MOTION_BG_URL =
 export function VideoBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black" aria-hidden>
-      <div className="absolute inset-y-0 left-0 right-[280px] flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center">
         <video
           className="h-full w-full object-contain object-center"
           src={MOTION_BG_URL}

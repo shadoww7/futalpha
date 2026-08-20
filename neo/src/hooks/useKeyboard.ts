@@ -13,6 +13,11 @@ export function useKeyboard() {
         event.preventDefault();
         useNeoStore.getState().newChat();
       }
+      if (meta && event.key.toLowerCase() === 'b') {
+        event.preventDefault();
+        const { settings, setSettings } = useNeoStore.getState();
+        setSettings({ sidebarOpen: settings.sidebarOpen === false });
+      }
       if (event.key === 'Escape') {
         const state = useNeoStore.getState();
         if (state.streaming) state.stop();

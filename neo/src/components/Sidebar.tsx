@@ -1,4 +1,4 @@
-import { ChevronRight, FlaskConical, Pencil, Plug, Search, Settings, SlidersHorizontal, Zap } from 'lucide-react';
+import { ChevronRight, FlaskConical, PanelRightClose, Pencil, Plug, Search, Settings, SlidersHorizontal, Zap } from 'lucide-react';
 import { t } from '../i18n';
 import { cn } from '../lib/cn';
 import { modelLabel } from '../lib/models';
@@ -19,6 +19,7 @@ export function Sidebar() {
   const updateActive = useNeoStore((s) => s.updateActive);
   const renameChat = useNeoStore((s) => s.renameChat);
   const deleteChat = useNeoStore((s) => s.deleteChat);
+  const setSettings = useNeoStore((s) => s.setSettings);
   const chat = chats.find((item) => item.id === activeChatId);
 
   const nav = [
@@ -38,6 +39,17 @@ export function Sidebar() {
 
   return (
     <aside className="flex w-[280px] shrink-0 flex-col border-l border-white/[0.05] bg-black/45 backdrop-blur-xl">
+      <div className="flex items-center justify-between px-3 pt-3">
+        <span className="text-[11px] uppercase tracking-[0.16em] text-neo-faint">{copy.sidebar}</span>
+        <button
+          type="button"
+          title={copy.sidebarHide}
+          onClick={() => setSettings({ sidebarOpen: false })}
+          className="rounded-md p-1 text-neo-faint hover:bg-white/[0.05] hover:text-white"
+        >
+          <PanelRightClose className="h-4 w-4" />
+        </button>
+      </div>
       <nav className="space-y-0.5 px-3 py-3">
         {nav.map((item) => (
           <button

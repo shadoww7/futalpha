@@ -47,6 +47,7 @@ export function App() {
   }, [chat?.messages, canvasOpen, setPanel]);
 
   const motionBg = settings.motionBg !== false;
+  const sidebarOpen = settings.sidebarOpen !== false;
 
   if (!ready) {
     return (
@@ -78,7 +79,7 @@ export function App() {
         </main>
         <IdePanel />
         <ArtifactPanel />
-        <Sidebar />
+        {sidebarOpen && <Sidebar />}
       </div>
       <CommandPalette />
       <CustomizePanel />

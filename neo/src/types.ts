@@ -60,6 +60,7 @@ export interface Settings {
   compareEnabled: boolean;
   compareModel: string;
   motionBg: boolean;
+  sidebarOpen: boolean;
 }
 
 export interface Automation {

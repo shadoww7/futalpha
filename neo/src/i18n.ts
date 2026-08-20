@@ -66,6 +66,9 @@ const pt = {
   noResults: 'Nada encontrado',
   listening: 'Ouvindo…',
   motionBg: 'Fundo animado',
+  sidebar: 'Menu',
+  sidebarHide: 'Fechar menu',
+  sidebarShow: 'Abrir menu',
 };
 
 const en: typeof pt = {
@@ -134,6 +137,9 @@ const en: typeof pt = {
   noResults: 'No results',
   listening: 'Listening…',
   motionBg: 'Animated background',
+  sidebar: 'Menu',
+  sidebarHide: 'Hide menu',
+  sidebarShow: 'Show menu',
 };
 
 export type Copy = typeof pt;
