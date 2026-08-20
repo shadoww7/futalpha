@@ -19,7 +19,7 @@ export function CompareView() {
 
 function Column({ title, thought, body }: { title: string; thought?: string; body: string }) {
   return (
-    <div className="flex min-h-0 flex-col overflow-y-auto bg-black px-5 py-5">
+    <div className="flex min-h-0 flex-col overflow-y-auto bg-black/35 px-5 py-5 backdrop-blur-sm">
       <div className="mb-4 text-[11px] uppercase tracking-[0.16em] text-neo-faint">{title}</div>
       <ThoughtCard text={thought} />
       <div className="mt-6">

@@ -37,7 +37,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="flex w-[280px] shrink-0 flex-col border-l border-white/[0.05] bg-black">
+    <aside className="flex w-[280px] shrink-0 flex-col border-l border-white/[0.05] bg-black/45 backdrop-blur-xl">
       <nav className="space-y-0.5 px-3 py-3">
         {nav.map((item) => (
           <button

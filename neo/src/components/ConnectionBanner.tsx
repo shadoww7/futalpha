@@ -7,7 +7,7 @@ export function ConnectionBanner() {
   const copy = t(locale);
   if (health.connected) return null;
   return (
-    <div className="mx-auto mb-4 w-full max-w-3xl rounded-xl border border-white/[0.06] bg-[#161616] px-4 py-3 text-[13px] text-neo-muted">
+    <div className="mx-auto mb-4 w-full max-w-3xl rounded-xl border border-white/[0.06] bg-[#161616]/75 px-4 py-3 text-[13px] text-neo-muted backdrop-blur-md">
       {copy.disconnected}
     </div>
   );

@@ -25,6 +25,20 @@ npx -y @modelcontextprotocol/server-filesystem /caminho
 
 Configs ficam em `~/.illusions/mcp.json`.
 
+## Gerar o .exe (Windows)
+
+```bash
+cd neo
+npm install
+npm run dist:win
+```
+
+O executável sai em:
+
+`neo/release/Illusions.exe`
+
+No Windows, clique duas vezes nesse arquivo. Para a key da Grok, coloque um `.env` na mesma pasta do exe ou em `%APPDATA%/illusions/.env`.
+
 ## Só API + site (dev)
 
 ```bash

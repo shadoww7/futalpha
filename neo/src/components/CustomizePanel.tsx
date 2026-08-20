@@ -51,6 +51,11 @@ export function CustomizePanel() {
             </Chip>
           ))}
         </Field>
+        <Field label={copy.motionBg}>
+          <Chip active={settings.motionBg !== false} onClick={() => setSettings({ motionBg: settings.motionBg === false })}>
+            {settings.motionBg !== false ? 'on' : 'off'}
+          </Chip>
+        </Field>
         <Field label={copy.compare}>
           <Chip active={settings.compareEnabled} onClick={() => setSettings({ compareEnabled: !settings.compareEnabled })}>
             {settings.compareEnabled ? 'on' : 'off'}

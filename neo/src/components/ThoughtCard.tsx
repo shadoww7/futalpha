@@ -11,7 +11,7 @@ export function ThoughtCard({ text, streaming }: { text?: string; streaming?: bo
 
   return (
     <div className="mx-auto w-full max-w-3xl">
-      <div className="rounded-2xl border border-white/[0.05] bg-[#161616] px-5 py-4 text-[13.5px] leading-relaxed text-[#c8c8c8]">
+      <div className="rounded-2xl border border-white/[0.06] bg-[#161616]/70 px-5 py-4 text-[13.5px] leading-relaxed text-[#c8c8c8] backdrop-blur-md">
         {open ? body : body.slice(0, 90) + (body.length > 90 ? '…' : '')}
       </div>
       <button

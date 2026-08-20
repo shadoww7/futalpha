@@ -11,6 +11,7 @@ import { IdePanel } from './components/IdePanel';
 import { McpPanel } from './components/McpPanel';
 import { MessageList } from './components/MessageList';
 import { Sidebar } from './components/Sidebar';
+import { VideoBackground } from './components/VideoBackground';
 import { useAutomations } from './hooks/useAutomations';
 import { useKeyboard } from './hooks/useKeyboard';
 import { extractArtifacts, htmlFromArtifacts } from './lib/artifacts';
@@ -45,14 +46,23 @@ export function App() {
     if (html && !canvasOpen) setPanel('canvasOpen', true);
   }, [chat?.messages, canvasOpen, setPanel]);
 
+  const motionBg = settings.motionBg !== false;
+
   if (!ready) {
-    return <div className="grid h-full place-items-center text-[13px] text-neo-faint">Illusions</div>;
+    return (
+      <div className="relative grid h-full place-items-center text-[13px] text-neo-faint">
+        {motionBg && <VideoBackground />}
+        <span className="relative z-10">Illusions</span>
+      </div>
+    );
   }
 
   return (
     <div
-      className={`flex h-full flex-col bg-neo-bg text-neo-text ${settings.density === 'compact' ? 'text-[13px]' : ''}`}
+      className={`relative flex h-full flex-col text-neo-text ${motionBg ? 'bg-transparent' : 'bg-neo-bg'} ${settings.density === 'compact' ? 'text-[13px]' : ''}`}
     >
+      {motionBg && <VideoBackground />}
+      <div className="relative z-10 flex h-full min-h-0 flex-col">
       <Header />
       <div className="flex min-h-0 flex-1">
         <main className="flex min-w-0 flex-1 flex-col">
@@ -74,6 +84,7 @@ export function App() {
       <CustomizePanel />
       <AutomationsPanel />
       <McpPanel />
+      </div>
     </div>
   );
 }

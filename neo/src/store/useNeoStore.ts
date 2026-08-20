@@ -33,6 +33,7 @@ const defaultSettings = (): Settings => ({
   locale: 'pt-BR',
   compareEnabled: false,
   compareModel: 'grok-4.3',
+  motionBg: true,
 });
 
 const defaultWorkspace = (): Workspace => ({
@@ -167,7 +168,7 @@ export const useNeoStore = create<NeoState>((set, get) => ({
       nextWorkspaces = [seed];
     }
 
-    const profile = settings ?? defaultSettings();
+    const profile = { ...defaultSettings(), ...settings };
     if (!settings) await putSettings(profile);
 
     const sorted = [...chats].sort((a, b) => b.updatedAt - a.updatedAt);

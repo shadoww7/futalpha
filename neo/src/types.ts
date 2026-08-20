@@ -59,6 +59,7 @@ export interface Settings {
   locale: Locale;
   compareEnabled: boolean;
   compareModel: string;
+  motionBg: boolean;
 }
 
 export interface Automation {

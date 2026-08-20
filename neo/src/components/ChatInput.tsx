@@ -78,7 +78,7 @@ export function ChatInput() {
             ))}
           </div>
         )}
-        <div className="rounded-[28px] border border-white/[0.06] bg-[#161616] px-3 py-2 shadow-pill">
+        <div className="rounded-[28px] border border-white/[0.08] bg-[#161616]/80 px-3 py-2 shadow-pill backdrop-blur-xl">
           <textarea
             value={value}
             rows={1}

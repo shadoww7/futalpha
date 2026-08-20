@@ -14,7 +14,7 @@ export function Header() {
   const addWorkspace = useNeoStore((s) => s.addWorkspace);
 
   return (
-    <header className="flex h-12 shrink-0 items-center justify-between border-b border-white/[0.05] px-4">
+    <header className="flex h-12 shrink-0 items-center justify-between border-b border-white/[0.05] bg-black/25 px-4 backdrop-blur-md">
       <div className="flex min-w-0 items-center gap-4">
         <button
           type="button"

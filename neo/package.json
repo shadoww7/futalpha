@@ -9,9 +9,40 @@
     "dev:web": "vite",
     "dev:server": "tsx watch server/index.ts",
     "app": "concurrently -k -n server,web,app -c cyan,magenta,green \"npm run dev:server\" \"npm run dev:web\" \"wait-on http://127.0.0.1:5174 http://127.0.0.1:8787/api/health && electron . --no-sandbox\"",
-    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "build": "tsc -p tsconfig.json --noEmit && vite build && npm run build:server",
+    "build:server": "esbuild server/packaged.ts --bundle --platform=node --format=esm --outfile=dist-server/index.js --packages=external",
+    "dist": "npm run build && electron-builder --win portable --x64",
+    "dist:win": "npm run build && electron-builder --win portable --x64",
+    "dist:linux": "npm run build && electron-builder --linux AppImage --x64",
     "preview": "vite preview --port 5174",
     "start": "tsx server/index.ts"
+  },
+  "build": {
+    "appId": "app.illusions.desktop",
+    "productName": "Illusions",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-server/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "Illusions.exe"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "artifactName": "Illusions-${version}.${ext}"
+    }
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.32",
@@ -42,6 +73,8 @@
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "electron": "^37.3.1",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.25.12",
     "concurrently": "^9.2.1",
     "wait-on": "^8.0.4",
     "postcss": "^8.5.6",

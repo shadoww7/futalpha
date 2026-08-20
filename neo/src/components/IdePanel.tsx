@@ -52,7 +52,7 @@ export function IdePanel() {
   };
 
   return (
-    <aside className="flex w-[360px] shrink-0 flex-col border-l border-white/[0.05] bg-[#070707]">
+    <aside className="flex w-[360px] shrink-0 flex-col border-l border-white/[0.05] bg-[#070707]/70 backdrop-blur-xl">
       <div className="flex items-center justify-between border-b border-white/[0.05] px-3 py-2">
         <div className="text-[12px] text-neo-muted">{copy.thisPc}</div>
         <div className="flex gap-2">

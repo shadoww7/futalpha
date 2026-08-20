@@ -65,6 +65,7 @@ const pt = {
   commandHint: 'Buscar chats, mensagens e ações',
   noResults: 'Nada encontrado',
   listening: 'Ouvindo…',
+  motionBg: 'Fundo animado',
 };
 
 const en: typeof pt = {
@@ -132,6 +133,7 @@ const en: typeof pt = {
   commandHint: 'Search chats, messages and actions',
   noResults: 'No results',
   listening: 'Listening…',
+  motionBg: 'Animated background',
 };
 
 export type Copy = typeof pt;

@@ -13,7 +13,7 @@ export function ArtifactPanel() {
   const artifacts = extractArtifacts(last?.content ?? '');
 
   return (
-    <aside className="flex w-[380px] shrink-0 flex-col border-l border-white/[0.05] bg-[#070707]">
+    <aside className="flex w-[380px] shrink-0 flex-col border-l border-white/[0.05] bg-[#070707]/70 backdrop-blur-xl">
       <div className="flex items-center justify-between border-b border-white/[0.05] px-3 py-2">
         <span className="text-[12px] text-neo-muted">Artifacts</span>
         <button type="button" onClick={() => setPanel('artifactOpen', false)}>
